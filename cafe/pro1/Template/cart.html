@@ -1,0 +1,60 @@
+ {% extends "index.html" %}
+ {% load static %}
+ {% block start %}
+   <style>
+#table1{
+    background: white !important;
+    margin-bottom: 1rem !important;
+    color: #212529 !important;
+}
+</style>
+
+ <div class="row">
+  <div class="col-lg-12">
+    <div class="box-element">
+       <a class="btn btn-outline-dark" href="{% url 'home_url' %}">&#x2190;continue
+        shopping</a>
+
+     <br>
+     <br>
+     <table id="table1" class="table">
+      
+      <tr>
+       <th><h5>Items <strong></strong></h5></th>
+       <th><h5>Price <strong></strong></h5></th>
+       <th><h5>Quantity <strong></strong></h5></th>
+       <th><h5>Total <strong></strong></h5></th>
+       
+      </tr>
+      <tr>
+         {% if items %}
+         {% for item in items %}
+         <td>{{item.product.name}} <img src="{{item.product.image.url}}" width="80px" height="80px"><br>
+            </td>
+         <td>₹{{item.product.price|floatformat:2}}</td>
+         <td>{{item.quantity}}
+         <img src="{% static 'images/upa.png' %}" height="30px" width="30px">
+         <img src="{% static 'images/downa.png' %}" height="30px" width="30px">
+      </td>
+      <td>
+         {{item.get_total}}
+      </td>
+      </tr>
+         {% endfor %}
+         {% else %}
+         <h1>No items to display</h1>
+         {% endif %}
+        
+      </table>
+      <table id="table1" class="table">
+         <tr>
+            
+          <th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+          <th><h5>Total: <strong>{{order.get_cart_total}}</strong></h5></th>
+          <th>
+           <a styele="float:right:margin=5px" class="btn btn-success" href="#">checkout"</a>
+          </th>
+         </tr>
+        </table>
+
+ {% endblock %}
